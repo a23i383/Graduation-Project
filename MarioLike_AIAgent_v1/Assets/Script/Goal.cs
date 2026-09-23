@@ -6,7 +6,9 @@ public class Goal:MonoBehaviour
 {
     [SerializeField] private float clearDelay = 2.0f;
     [SerializeField] private StageManager stageManager;
-    private bool isCleared = false;
+    [HideInInspector] public bool isCleared = false;
+
+    public event System.Action onGoalReached;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isCleared)
@@ -24,7 +26,9 @@ public class Goal:MonoBehaviour
                 player.GetComponent<Rigidbody2D>().linearVelocity = Vector3.zero;
             }
 
-            StartCoroutine(ClearSequence());
+            onGoalReached?.Invoke();
+            //StartCoroutine(ClearSequence());
+
         }
     }
 
@@ -33,7 +37,7 @@ public class Goal:MonoBehaviour
         Debug.Log("Clear!");
         stageManager.GoalShowText();
         yield return new WaitForSeconds(clearDelay);
-        Destroy(RespawnManager.instance);
+        //Destroy(RespawnManager.instance);
         SceneManager.LoadScene("MainMenu");
     }
 }

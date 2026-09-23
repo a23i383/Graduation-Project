@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
 
     [Header("HP&Damage motion")]
     [SerializeField] private float invincibleDuration = 2.0f;
-    [SerializeField] private int hp = 3;
+    [SerializeField] public int hp = 3;
     [SerializeField] private float gameOverDelay = 2.0f;
     [SerializeField] private float deedlyHeight = -5.0f;
 
@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
     [SerializeField] private StageManager stageManager;
     [SerializeField] private IsGroundChecker isGroundChecker;
     [SerializeField] private CameraFllow cameraFllow;
+    //[SerializeField] private StageResetManager stageResetManager;
     [SerializeField] private IInputProvider inputProvider;
 
     [SerializeField] public GameObject normalBlock;
@@ -204,7 +205,8 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
         canControl = false;
         rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(gameOverDelay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        stageManager.ResetStage();
     }
     private IEnumerator InvincibleCoroutine()
     {
@@ -293,15 +295,17 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
                 Destroy(desireBlockIns);
             }
         }
+
+        //ブロックの設置.
         if (stayDesireBlock && Physics2D.OverlapBox(cellCentrePos, new Vector2(0.9f, 0.9f), 0.0f, ~(playerStompLayer|blackHoleLayer)) == null)
         {
             if (desireBlockIns != null) desireBlockIns.transform.position = intMousePos;
             if (Input.GetMouseButtonDown(0) && blockQuantity[currentIndex] > 0) 
             {
                 audioSource.PlayOneShot(putSE);
-                Instantiate(blocks[currentIndex].block, intMousePos, Quaternion.identity);
+                stageManager.destroyBlockList.Add(Instantiate(blocks[currentIndex].block, intMousePos, Quaternion.identity));
 
-                if (!RespawnManager.instance.isOnRespawn) RespawnManager.instance.installBlockList.Add(new RespawnManager.installedBlocks { block = blocks[currentIndex].block, rocation = intMousePos });
+                //if (!RespawnManager.instance.isOnRespawn) RespawnManager.instance.installBlockList.Add(new RespawnManager.installedBlocks { block = blocks[currentIndex].block, rocation = intMousePos });
 
                 if (blockQuantity[currentIndex] > 0)
                 {
@@ -315,30 +319,39 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
             }
         }
     }
-    private void InitBlocks()
+    public void InitBlocks()
     {
         blocks.Clear();
 
-        if (RespawnManager.instance.normalBlockQuantity > 0)
+        if (stageManager.baseNormalBlockQuantity > 0)
         {
             blocks.Add(new BlockSet { block = normalBlock, desire = normalDesireBlock });
-            blockQuantity.Add(stageManager.normalBlockQuantity);
+            blockQuantity.Add(stageManager.baseNormalBlockQuantity);
         }
 
-        if (RespawnManager.instance.fallBlockQuantity > 0)
+        if (stageManager.baseFallBlockQuantity > 0)
         {
             blocks.Add(new BlockSet { block = fallBlock, desire = fallDesireBlock });
-            blockQuantity.Add(stageManager.fallBlockQuantity);
+            blockQuantity.Add(stageManager.baseFallBlockQuantity);
         }
 
-        if (RespawnManager.instance.blackHoleQuantity > 0)
+        if (stageManager.baseBlackHoleQuantity > 0)
         {
             blocks.Add(new BlockSet { block = blackHole, desire = DesireBlackHole });
-            blockQuantity.Add(stageManager.blackHoleQuantity);
+            blockQuantity.Add(stageManager.baseBlackHoleQuantity);
         }
     }
     public void SetInputProvider(IInputProvider provider)
     {
         inputProvider = provider;
+    }
+    public void ResetPlayer()
+    {
+        hp = stageManager.playerHp;
+        HPUIManager hPUIManager = FindFirstObjectByType<HPUIManager>();
+        hPUIManager.SetMaxHP(hp);
+        hPUIManager.previousHP = hp;
+        canControl = true;
+        Debug.Log(hPUIManager);
     }
 }

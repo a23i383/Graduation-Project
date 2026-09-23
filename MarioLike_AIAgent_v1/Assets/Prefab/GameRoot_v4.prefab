@@ -2761,7 +2761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72dd535da5e6aa141b7c7186174d75cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSelectSystem
-  playerContoroller: {fileID: 9118738715032111565}
+  playerController: {fileID: 9118738715032111565}
   normalIcon: {fileID: 756140832731684001, guid: a7dd604b06383d84f808a4c7f15c5315, type: 3}
   fallIcon: {fileID: 7095897652168020806, guid: 9af7581a62415dd4884e9d1c2527d2c6, type: 3}
   blackHoleIcon: {fileID: 5632481899554723485, guid: 7e8b16e8aacad3a42a4e64b3dc68a589, type: 3}

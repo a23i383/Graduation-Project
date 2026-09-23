@@ -9,6 +9,7 @@ public class RespawnManager : MonoBehaviour
     [HideInInspector] public bool isOnRespawn = false;
     [HideInInspector] public bool isFirstGame = true;
     [HideInInspector] public List<installedBlocks> installBlockList = new List<installedBlocks>();
+    [HideInInspector] public List<installedEnemys> installEnemyList = new List<installedEnemys>();
     [HideInInspector] public int normalBlockQuantity;
     [HideInInspector] public int fallBlockQuantity;
     [HideInInspector] public int blackHoleQuantity;
@@ -17,15 +18,20 @@ public class RespawnManager : MonoBehaviour
         public GameObject block;
         public Vector3 rocation;
     }
+    public struct installedEnemys
+    {
+        public GameObject enemy;
+        public Vector3 rocation;
+    }
 
     private void Awake()
     {
         if(instance == null)
         {
             StageManager stageManager = FindAnyObjectByType<StageManager>();
-            normalBlockQuantity = stageManager.normalBlockQuantity;
-            fallBlockQuantity = stageManager.fallBlockQuantity;
-            blackHoleQuantity = stageManager.blackHoleQuantity;
+            normalBlockQuantity = stageManager.baseNormalBlockQuantity;
+            fallBlockQuantity = stageManager.baseFallBlockQuantity;
+            blackHoleQuantity = stageManager.baseBlackHoleQuantity;
             instance = this;
             DontDestroyOnLoad(gameObject);
         }

@@ -42,7 +42,9 @@ public class PauseUIManager : MonoBehaviour
     private void OnRestart()
     {
         Debug.Log("リスタートする");
-        Destroy(RespawnManager.instance);
+        //Destroy(RespawnManager.instance);
+        FindFirstObjectByType<StageManager>().ResetStage();
+
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

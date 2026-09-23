@@ -9,16 +9,16 @@ public class HPUIManager:MonoBehaviour
     [SerializeField] private PlayerController player;
 
     private List<GameObject> hearts=new List<GameObject> ();
-    private int previousHP;
+    [HideInInspector] public int previousHP;
 
     private void Start()
     {
-        previousHP = player.currentHp;
+        previousHP = player.hp;
         SetMaxHP (previousHP);
     }
     private void Update()
     {
-        int currentHp=player.currentHp;
+        int currentHp=player.hp;
         if(currentHp < previousHP)
         {
             for(int i = currentHp; i < previousHP; i++)
@@ -29,7 +29,7 @@ public class HPUIManager:MonoBehaviour
         previousHP = currentHp;
     }
 
-    private void SetMaxHP(int maxHP)
+    public void SetMaxHP(int maxHP)
     {
         foreach(var heart in hearts)
         {
@@ -42,6 +42,7 @@ public class HPUIManager:MonoBehaviour
             GameObject heart = Instantiate(heartPrefab, heartPannel);
             hearts.Add(heart);
         }
+        Debug.Log("インスタんてぃエイト！:"+maxHP);
     }
 
 

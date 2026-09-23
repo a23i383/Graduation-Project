@@ -1,0 +1,3 @@
+StageManager‚ÆStageResetManager‚ğ“‡‚µ‚Ü‚µ‚å‚¤
+‚¢‚Â‚©BaseQuantity‚Æ•’Ê‚ÌQuantity‚Ì–ğŠ„‚ğ“ü‚ê‘Ö‚¦‚Ü‚µ‚å‚¤i‚í‚©‚è‚É‚­‚¢‚Ì‚Åj
+Œ»İCharacterAgent‚Ì•ñVü‚è‚ğİ’è‚µ‚Ä‚¢‚Ü‚·.

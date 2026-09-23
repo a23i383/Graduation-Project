@@ -9,7 +9,8 @@ using TMPro;
 public class ItemSelectSystem : MonoBehaviour
 {
     [Header("Script")]
-    [SerializeField] private PlayerController playerContoroller;
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private StageManager stageManager;
 
     [Header("Prefab")]
     [SerializeField] private GameObject normalIcon;
@@ -47,7 +48,7 @@ public class ItemSelectSystem : MonoBehaviour
     void Start()
     {
         SetUpSlots();
-        activeBlockQuantity.text = "Å~" + FindAnyObjectByType<StageManager>().normalBlockQuantity;
+        activeBlockQuantity.text = "Å~" + stageManager.baseNormalBlockQuantity;
     }
 
     void Update()
@@ -71,7 +72,7 @@ public class ItemSelectSystem : MonoBehaviour
         SetAlpha(addSlot.obj, addSlot.baseAlpha);
 
         currentIndex = direction > 0.0f ? Next(currentIndex) : Prev(currentIndex);
-        activeBlockQuantity.text = "Å~" + playerContoroller.blockQuantity[currentIndex];
+        activeBlockQuantity.text = "Å~" + playerController.blockQuantity[currentIndex];
 
         float totalMove = -iconSpace * direction;
         float elapsed = 0.0f;
@@ -157,11 +158,11 @@ public class ItemSelectSystem : MonoBehaviour
     {
         Icons.Clear();
 
-        if (RespawnManager.instance.normalBlockQuantity > 0) Icons.Add(normalIcon);
+        if (stageManager.baseNormalBlockQuantity > 0) Icons.Add(normalIcon);
 
-        if (RespawnManager.instance.fallBlockQuantity > 0) Icons.Add(fallIcon);
+        if (stageManager.baseFallBlockQuantity > 0) Icons.Add(fallIcon);
 
-        if (RespawnManager.instance.blackHoleQuantity > 0) Icons.Add(blackHoleIcon);
+        if (stageManager.baseBlackHoleQuantity > 0) Icons.Add(blackHoleIcon);
     }
     private IconSlot CreateSlot(int index, float PosX, float alpha)
     {

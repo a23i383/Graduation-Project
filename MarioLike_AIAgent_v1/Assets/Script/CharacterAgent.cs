@@ -8,27 +8,46 @@ public class CharacterAgent : Agent
 {
     private Rigidbody2D rb;
     private PlayerController playerController;
+    private Goal goal;
+    private StageManager stageManager;
     private AIInputProvider inputProvider;
 
     private float holizontalMove;
+
+    private int stepCount = 0;
+
+    [Header("ïÒèVåWêî")]
+    [SerializeField] private float timePenralty = 0.001f;
+    [SerializeField] private float progressRewardScale = 0.01f;
+    [SerializeField] private float damagePenalty = 0.5f;
+    [SerializeField] private float deathPenalty = 1.0f;
+    [SerializeField] private float goalReward = 1.0f;
+
+    private float previousX;
 
     public override void Initialize()
     {
         rb = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerController>();
+        goal = FindFirstObjectByType<Goal>();
+        stageManager = FindFirstObjectByType<StageManager>();
         inputProvider = new AIInputProvider();
         playerController.SetInputProvider(inputProvider);
 
         holizontalMove = 0.0f;
+
+        goal.onGoalReached += HandleOnGoaled;
     }
 
     public override void OnEpisodeBegin()
     {
-        transform.position = new Vector3(0.0f, 0.0f, 0.0f);
-        rb.linearVelocity = Vector2.zero;
+        stageManager.ResetStage();
+        goal.isCleared = false;
 
         playerController.SetInputProvider(inputProvider);
         inputProvider.ResetInput();
+
+        previousX = transform.position.x;
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -96,6 +115,14 @@ public class CharacterAgent : Agent
                 inputProvider.dushHold = true;
                 break;
         }
+
+        //ïÒèV.
+        float deltaX = transform.position.x - previousX;
+        AddReward(progressRewardScale * deltaX);
+
+        AddReward(-timePenralty);
+
+        stepCount++;
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
@@ -115,5 +142,19 @@ public class CharacterAgent : Agent
         else if (holizontalMove == -1.0f && jumpHold == true && dushHold == false) discreteActions[0] = 7;
         else if (holizontalMove == 1.0f && jumpHold == true && dushHold == true) discreteActions[0] = 8;
         else if (holizontalMove == -1.0f && jumpHold == true && dushHold == true) discreteActions[0] = 9;
+    }
+    private void HandleDamaged()
+    {
+        AddReward(-damagePenalty);
+    }
+    private void HandleDied()
+    {
+        AddReward(-deathPenalty);
+    }
+    public void HandleOnGoaled()
+    {
+        AddReward(goalReward);
+        Debug.Log(stepCount);
+        EndEpisode();
     }
 }
