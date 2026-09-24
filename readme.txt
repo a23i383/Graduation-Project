@@ -6,8 +6,15 @@ pip install -r requirements.txt
 
 .venv_mlagentsはPython 3.11.9で
 pip install -r requirements_mlagents.txt
-ほかのPCでは試してないのでうまくいくかわからない。さらに
-\GraduationProject\.venv_mlagents\Lib\site-packages\mlagents\trainers\settings.py
+
+ModuleNotFoundError: No module named 'pkg_resources'
+のエラーが出るはずなので
+pip install "setuptools<82"
+をする。ついでに
+pip install "protobuf==3.20.3"
+もする。（多分どこかで最新のprotobufを入れてしまっているため）
+
+\.venv_mlagents\Lib\site-packages\mlagents\trainers\settings.py
 のすべての
 cattr.register_structure_hook(
     Dict[RewardSignalType, RewardSignalSettings], RewardSignalSettings.structure
@@ -16,5 +23,14 @@ cattr.register_structure_hook(
 cattr.register_structure_hook_func(
     lambda t: t == Dict[RewardSignalType, RewardSignalSettings],
     RewardSignalSettings.structure,
+)
+に書き換える。さらに
+cattr.register_structure_hook(
+    Dict[str, EnvironmentParameterSettings], EnvironmentParameterSettings.structure
+)
+を
+cattr.register_structure_hook_func(
+    lambda t: t == Dict[str, EnvironmentParameterSettings],
+    EnvironmentParameterSettings.structure,
 )
 に書き換えること
