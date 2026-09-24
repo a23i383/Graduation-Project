@@ -1,0 +1,6 @@
+TimePenalty=		0.001
+ActionPenalty=		0.0
+ProgressRewardScale=	0.01
+DamagePenalty=		0.5
+DeathPenalty=		1
+GoalReward=		1

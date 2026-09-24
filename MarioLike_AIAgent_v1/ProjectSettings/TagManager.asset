@@ -10,6 +10,7 @@ TagManager:
   - EnemyDetection
   - EnemyStompDetection
   - EnemyHit
+  - Goal
   layers:
   - Default
   - TransparentFX

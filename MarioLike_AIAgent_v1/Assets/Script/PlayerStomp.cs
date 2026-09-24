@@ -7,15 +7,21 @@ public class PlayerStomp:MonoBehaviour
     private AudioSource audioSource;
     private Rigidbody2D playerRb;
     private EnemyBase enemyBase;
+    private CharacterAgent characterAgent;
+
+    public event System.Action isStomp;
+
     private void Start()
     {
         playerRb= GetComponentInParent<Rigidbody2D>();
+        characterAgent = GetComponentInParent<CharacterAgent>();
         audioSource = GetComponentInParent<AudioSource>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "EnemyStompDetection")
         {
+            isStomp?.Invoke();
             audioSource.PlayOneShot(stompSE, 1.0f);
             Vector2 currentVec = playerRb.linearVelocity;
 

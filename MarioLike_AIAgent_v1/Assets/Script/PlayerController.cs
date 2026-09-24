@@ -97,6 +97,9 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
     private List<BlockSet> blocks= new List<BlockSet>();
     [HideInInspector] public List<int> blockQuantity = new List<int>();
 
+    public event System.Action IsDied;
+    public event System.Action<int> OnDamaged;
+
     private void Start()
     {
         InitBlocks();
@@ -190,6 +193,7 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
             return;
         }
 
+        OnDamaged?.Invoke(damage);
         hp = hp < damage ? 0 : hp - damage;
         if (hp <= 0)
         {
@@ -206,6 +210,7 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
         rb.linearVelocity = Vector2.zero;
         yield return new WaitForSeconds(gameOverDelay);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        IsDied?.Invoke();
         stageManager.ResetStage();
     }
     private IEnumerator InvincibleCoroutine()
@@ -352,6 +357,5 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
         hPUIManager.SetMaxHP(hp);
         hPUIManager.previousHP = hp;
         canControl = true;
-        Debug.Log(hPUIManager);
     }
 }

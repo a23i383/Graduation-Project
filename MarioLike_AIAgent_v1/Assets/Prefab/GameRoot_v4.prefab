@@ -1761,6 +1761,13 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  timePenralty: 0.005
+  actionPenralty: 0.1
+  progressRewardScale: 0.01
+  damagePenalty: 0.5
+  deathPenalty: 1
+  goalReward: 1
+  stompReward: 1
 --- !u!114 &8876218305325683371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2762,6 +2769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSelectSystem
   playerController: {fileID: 9118738715032111565}
+  stageManager: {fileID: 0}
   normalIcon: {fileID: 756140832731684001, guid: a7dd604b06383d84f808a4c7f15c5315, type: 3}
   fallIcon: {fileID: 7095897652168020806, guid: 9af7581a62415dd4884e9d1c2527d2c6, type: 3}
   blackHoleIcon: {fileID: 5632481899554723485, guid: 7e8b16e8aacad3a42a4e64b3dc68a589, type: 3}
@@ -2825,6 +2833,7 @@ MonoBehaviour:
   heartPrefab: {fileID: 4078365957115099649, guid: 3e3de974055503e4699ae2508d63dc6e, type: 3}
   heartPannel: {fileID: 1648079381205145477}
   player: {fileID: 9118738715032111565}
+  previousHP: 0
 --- !u!1 &8096060175288264389
 GameObject:
   m_ObjectHideFlags: 0

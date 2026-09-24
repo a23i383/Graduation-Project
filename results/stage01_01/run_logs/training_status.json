@@ -1,0 +1,38 @@
+{
+    "CharacterAgent": {
+        "checkpoints": [
+            {
+                "steps": 384,
+                "file_path": "results\\stage01_01\\CharacterAgent\\CharacterAgent-384.onnx",
+                "reward": null,
+                "creation_time": 1790225022.7958732,
+                "auxillary_file_paths": [
+                    "results\\stage01_01\\CharacterAgent\\CharacterAgent-384.pt"
+                ]
+            },
+            {
+                "steps": 45031,
+                "file_path": "results\\stage01_01\\CharacterAgent\\CharacterAgent-45031.onnx",
+                "reward": 46.01614910364151,
+                "creation_time": 1790225414.2428634,
+                "auxillary_file_paths": [
+                    "results\\stage01_01\\CharacterAgent\\CharacterAgent-45031.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 45031,
+            "file_path": "results\\stage01_01\\CharacterAgent.onnx",
+            "reward": 46.01614910364151,
+            "creation_time": 1790225414.2428634,
+            "auxillary_file_paths": [
+                "results\\stage01_01\\CharacterAgent\\CharacterAgent-45031.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "2.1.2+cpu"
+    }
+}

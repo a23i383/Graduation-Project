@@ -42,7 +42,6 @@ public class HPUIManager:MonoBehaviour
             GameObject heart = Instantiate(heartPrefab, heartPannel);
             hearts.Add(heart);
         }
-        Debug.Log("インスタんてぃエイト！:"+maxHP);
     }
 
 

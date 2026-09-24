@@ -8,7 +8,7 @@ public class Goal:MonoBehaviour
     [SerializeField] private StageManager stageManager;
     [HideInInspector] public bool isCleared = false;
 
-    public event System.Action onGoalReached;
+    public event System.Action OnGoalReached;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isCleared)
@@ -26,7 +26,7 @@ public class Goal:MonoBehaviour
                 player.GetComponent<Rigidbody2D>().linearVelocity = Vector3.zero;
             }
 
-            onGoalReached?.Invoke();
+            OnGoalReached?.Invoke();
             //StartCoroutine(ClearSequence());
 
         }
