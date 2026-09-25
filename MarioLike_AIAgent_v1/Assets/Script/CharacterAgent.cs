@@ -127,7 +127,9 @@ public class CharacterAgent : Agent
 
         //•ñV.
         float deltaX = transform.position.x - previousX;
+        deltaX = deltaX < 0 ? deltaX * 2 : deltaX;
         AddReward(progressRewardScale * deltaX);
+        previousX = transform.position.x;
 
         AddReward(-timePenralty);
 

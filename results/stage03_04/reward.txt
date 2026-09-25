@@ -1,0 +1,11 @@
+proviousXをリセットするようにしました。
+
+TimePenalty=		0.005
+ActionPenalty=		0.0
+ProgressRewardScale=	0.5
+DamagePenalty=		0.5
+DeathPenalty=		1
+GoalReward=		10
+StompReward=		1
+
+ゴールまで行けるようになりましたが、敵に当たることをいとわないので報酬を調整します。

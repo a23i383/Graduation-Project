@@ -1,0 +1,15 @@
+ProgressRewardScale=	0.5  ->  1.0
+DamagePenalty		0.5  ->  1.0
+DeathPenalty=		1.0  ->  2.0
+GoalReward=		10.0 ->  20.0
+StompReward=		1.0  ->  5.0
+
+TimePenalty=		0.005
+ActionPenalty=		0.0
+ProgressRewardScale=	1.0
+DamagePenalty=		1.0
+DeathPenalty=		2.0
+GoalReward=		20.0
+StompReward=		5.0
+
+ある程度敵を踏むことを覚えましたがまだ敵に当たってもあんまり気にしていません。

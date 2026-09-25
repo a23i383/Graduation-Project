@@ -1,0 +1,9 @@
+TimePenalty=		0.005
+ActionPenalty=		0.0
+ProgressRewardScale=	0.01
+DamagePenalty=		0.5
+DeathPenalty=		1
+GoalReward=		10
+StompReward=		1
+
+崖際をジャンプするだけになったのでProgressRewardScaleを大きくします。

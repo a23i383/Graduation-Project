@@ -507,35 +507,6 @@ MonoBehaviour:
   DecisionPeriod: 1
   DecisionStep: 0
   TakeActionsBetweenDecisions: 0
---- !u!114 &780659715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 625071580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.Sensors.RayPerceptionSensorComponent2D
-  m_SensorName: RayPerceptionSensor
-  m_DetectableTags:
-  - Ground
-  - Enemy
-  - Goal
-  m_RaysPerDirection: 2
-  m_MaxRayDegrees: 45
-  m_SphereCastRadius: 0.5
-  m_RayLength: 20
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  m_ObservationStacks: 1
-  m_AlternatingRayOrder: 1
-  m_UseBatchedRaycasts: 0
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &787532467
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,11 +767,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2786724866327589458, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
       propertyPath: MaxStep
-      value: 500
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 2786724866327589458, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
       propertyPath: goalReward
-      value: 10
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786724866327589458, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+      propertyPath: stompReward
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786724866327589458, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+      propertyPath: deathPenalty
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786724866327589458, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+      propertyPath: damagePenalty
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786724866327589458, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+      propertyPath: actionPenralty
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786724866327589458, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+      propertyPath: progressRewardScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2795143682919732694, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
       propertyPath: m_AnchorMax.y
@@ -950,6 +941,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5622872458652303955, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5622872458652303955, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5622872458652303955, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5622872458652303955, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 5651369544361249567, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1081,7 +1088,7 @@ PrefabInstance:
     - target: {fileID: 8876218305325683371, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 72c6bf66e6989b94f8020f04acd7bc18, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: 67c586f09de688c44bfbf296a7c76806, type: 3}
     - target: {fileID: 8876218305325683371, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
       propertyPath: m_BehaviorName
       value: CharacterAgent
@@ -1126,11 +1133,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3010966123144187445, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
-      insertIndex: -1
+      insertIndex: 9
       addedObject: {fileID: 780659704}
-    - targetCorrespondingSourceObject: {fileID: 3010966123144187445, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2590093904850947673, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 780659715}
+      addedObject: {fileID: 1347124116}
     - targetCorrespondingSourceObject: {fileID: 1659317178267374556, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4745648}
@@ -1278,6 +1285,40 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f30dff473d39546a46325fbea0854c, type: 3}
+--- !u!1 &1347124114 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2590093904850947673, guid: f287e68f5011da54ba7524425c042eb3, type: 3}
+  m_PrefabInstance: {fileID: 820633158}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1347124116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347124114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.ML-Agents::Unity.MLAgents.Sensors.RayPerceptionSensorComponent2D
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - Ground
+  - Enemy
+  - Goal
+  m_RaysPerDirection: 2
+  m_MaxRayDegrees: 45
+  m_SphereCastRadius: 0.1
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 73856
+  m_ObservationStacks: 1
+  m_AlternatingRayOrder: 1
+  m_UseBatchedRaycasts: 0
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &1784525288
 GameObject:
   m_ObjectHideFlags: 0
@@ -4005,9 +4046,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 86085195311108732, guid: 48f5369716fe4eb45a11fd06be8479d2, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 685324328623288537, guid: 48f5369716fe4eb45a11fd06be8479d2, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 4108164813548638887, guid: 48f5369716fe4eb45a11fd06be8479d2, type: 3}
       propertyPath: m_Name
       value: Goal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108164813548638887, guid: 48f5369716fe4eb45a11fd06be8479d2, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4108164813548638887, guid: 48f5369716fe4eb45a11fd06be8479d2, type: 3}
       propertyPath: m_TagString
@@ -4061,6 +4114,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6766795904063292775, guid: 48f5369716fe4eb45a11fd06be8479d2, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8961002014674908829, guid: 48f5369716fe4eb45a11fd06be8479d2, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4080,9 +4141,9 @@ GameObject:
   - component: {fileID: 478495711}
   - component: {fileID: 478495710}
   - component: {fileID: 478495709}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: TransparentWallTilemap
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

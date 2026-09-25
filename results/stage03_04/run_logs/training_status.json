@@ -1,0 +1,56 @@
+{
+    "CharacterAgent": {
+        "checkpoints": [
+            {
+                "steps": 49980,
+                "file_path": "results\\stage03_04\\CharacterAgent\\CharacterAgent-49980.onnx",
+                "reward": 1.6021854877471924,
+                "creation_time": 1790311034.7617943,
+                "auxillary_file_paths": [
+                    "results\\stage03_04\\CharacterAgent\\CharacterAgent-49980.pt"
+                ]
+            },
+            {
+                "steps": 99962,
+                "file_path": "results\\stage03_04\\CharacterAgent\\CharacterAgent-99962.onnx",
+                "reward": 17.45100239912669,
+                "creation_time": 1790311345.6228735,
+                "auxillary_file_paths": [
+                    "results\\stage03_04\\CharacterAgent\\CharacterAgent-99962.pt"
+                ]
+            },
+            {
+                "steps": 149955,
+                "file_path": "results\\stage03_04\\CharacterAgent\\CharacterAgent-149955.onnx",
+                "reward": 4.323474481701851,
+                "creation_time": 1790311679.483649,
+                "auxillary_file_paths": [
+                    "results\\stage03_04\\CharacterAgent\\CharacterAgent-149955.pt"
+                ]
+            },
+            {
+                "steps": 177645,
+                "file_path": "results\\stage03_04\\CharacterAgent\\CharacterAgent-177645.onnx",
+                "reward": 18.371634347098215,
+                "creation_time": 1790311857.8060493,
+                "auxillary_file_paths": [
+                    "results\\stage03_04\\CharacterAgent\\CharacterAgent-177645.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 177645,
+            "file_path": "results\\stage03_04\\CharacterAgent.onnx",
+            "reward": 18.371634347098215,
+            "creation_time": 1790311857.8060493,
+            "auxillary_file_paths": [
+                "results\\stage03_04\\CharacterAgent\\CharacterAgent-177645.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "2.1.2+cpu"
+    }
+}

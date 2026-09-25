@@ -1,0 +1,29 @@
+{
+    "CharacterAgent": {
+        "checkpoints": [
+            {
+                "steps": 49463,
+                "file_path": "results\\stage03_02\\CharacterAgent\\CharacterAgent-49463.onnx",
+                "reward": 21.214826027552288,
+                "creation_time": 1790306452.7204936,
+                "auxillary_file_paths": [
+                    "results\\stage03_02\\CharacterAgent\\CharacterAgent-49463.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 49463,
+            "file_path": "results\\stage03_02\\CharacterAgent.onnx",
+            "reward": 21.214826027552288,
+            "creation_time": 1790306452.7204936,
+            "auxillary_file_paths": [
+                "results\\stage03_02\\CharacterAgent\\CharacterAgent-49463.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "2.1.2+cpu"
+    }
+}

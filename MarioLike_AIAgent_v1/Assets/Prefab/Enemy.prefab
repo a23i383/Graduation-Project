@@ -363,7 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlimePatrol
   moveSpeed: 2
   destroyTime: 0.1
-  damage: 2
+  damage: 1
   isStart: 0
   isBlackHoleStay: 0
   rayWallDistance: 0.01

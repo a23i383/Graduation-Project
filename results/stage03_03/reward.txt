@@ -1,0 +1,11 @@
+ProgressRewardScale	0.01->0.5
+
+TimePenalty=		0.005
+ActionPenalty=		0.0
+ProgressRewardScale=	0.5
+DamagePenalty=		0.5
+DeathPenalty=		1
+GoalReward=		10
+StompReward=		1
+
+普通にproviousXのリセットを忘れていたので直します。

@@ -1,3 +1,6 @@
 StageManagerとStageResetManagerを統合しましょう
 いつかBaseQuantityと普通のQuantityの役割を入れ替えましょう（わかりにくいので）
 現在CharacterAgentの報酬周りを設定しています.
+
+開始のタイミングでなぜかジャンプできるようです.直しましょう.
+アイテムスロットを嫌がらずに直しましょう.
