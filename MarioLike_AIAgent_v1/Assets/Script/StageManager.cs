@@ -106,7 +106,7 @@ public class StageManager : MonoBehaviour
             Camera.main.transform.position= RespawnManager.instance.spawnPosition;
         }
     }
-    public void SetStageInfo()
+    private void SetStageInfo()
     {
         playerHp = playerController.hp;
 
@@ -149,6 +149,11 @@ public class StageManager : MonoBehaviour
                 if (destroyBlock != null) Destroy(destroyBlock);
             }
         }
+
+        normalBlockQuantity = baseNormalBlockQuantity;
+        fallBlockQuantity = baseFallBlockQuantity;
+        blackHoleQuantity = baseBlackHoleQuantity;
+
         destroyBlockList.Clear();
         playerController.InitBlocks();
 
@@ -159,5 +164,7 @@ public class StageManager : MonoBehaviour
 
         //UI‚ÌƒŠƒZƒbƒg.
         endText.text = string.Empty;
+        ItemSelectSystem itemSelectSystem=FindFirstObjectByType<ItemSelectSystem>();
+        itemSelectSystem.SetUpSlots();
     }
 }

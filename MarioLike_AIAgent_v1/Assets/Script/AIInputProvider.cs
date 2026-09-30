@@ -7,6 +7,9 @@ public class AIInputProvider : IInputProvider
     private bool jumpHoldPrev = false;
     public bool jumpHold = false;
     public bool dushHold = false;
+    public float scroll = 0.0f;
+    public Vector3 blockPos = Vector3.zero;
+    public bool blockInsDown = false;
 
 
     public void ResetInput()
@@ -45,5 +48,17 @@ public class AIInputProvider : IInputProvider
     public bool GetDushHold()
     {
         return dushHold;
+    }
+    public float GetMouseScroll()
+    {
+        return scroll;
+    }
+    public Vector3 GetBlockPos()
+    {
+        return blockPos;
+    }
+    public bool GetBlockInsDown()
+    {
+        return blockInsDown;
     }
 }

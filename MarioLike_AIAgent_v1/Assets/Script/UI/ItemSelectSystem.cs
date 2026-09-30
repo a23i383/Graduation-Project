@@ -11,6 +11,7 @@ public class ItemSelectSystem : MonoBehaviour
     [Header("Script")]
     [SerializeField] private PlayerController playerController;
     [SerializeField] private StageManager stageManager;
+    [SerializeField] private IInputProvider inputProvider;
 
     [Header("Prefab")]
     [SerializeField] private GameObject normalIcon;
@@ -45,20 +46,22 @@ public class ItemSelectSystem : MonoBehaviour
     private IconSlot leftSlot, centerSlot, rightSlot, addSlot;
     [Header("end")]
     [SerializeField] private int a;
+
+    private Coroutine currentAnimateScroll;
     void Start()
     {
         SetUpSlots();
-        activeBlockQuantity.text = "~" + stageManager.baseNormalBlockQuantity;
+        inputProvider = new KeyboardInputProvider();
     }
 
     void Update()
     {
-        scroll = Input.GetAxis("Mouse ScrollWheel");
+        scroll = inputProvider.GetMouseScroll();
 
         if (scroll != 0 && !isAnimation)
         {
             isAnimation = true;
-            StartCoroutine(AnimateScroll(scroll > 0.0f ? 1 : -1));
+            currentAnimateScroll = StartCoroutine(AnimateScroll(scroll > 0.0f ? 1 : -1));
         }
     }
 
@@ -139,8 +142,15 @@ public class ItemSelectSystem : MonoBehaviour
         centerSlot.baseAlpha = 1.0f;
         rightSlot.baseAlpha = 0.5f;
     }
-    private void SetUpSlots()
+    public void SetUpSlots()
     {
+        if (currentAnimateScroll != null)
+        {
+            StopCoroutine(currentAnimateScroll);
+            currentAnimateScroll = null;
+            isAnimation = false;
+        }
+
         InitIconList();
 
         currentIndex = 0;
@@ -152,11 +162,18 @@ public class ItemSelectSystem : MonoBehaviour
         SetAlpha(leftSlot.obj, leftSlot.baseAlpha);
         SetAlpha(centerSlot.obj, centerSlot.baseAlpha);
         SetAlpha(rightSlot.obj, rightSlot.baseAlpha);
+
+        activeBlockQuantity.text = "~" + stageManager.baseNormalBlockQuantity;
     }
 
     private void InitIconList()
     {
         Icons.Clear();
+
+        Destroy(leftSlot.obj);
+        Destroy(centerSlot.obj);
+        Destroy(rightSlot.obj);
+        if (addSlot.obj != null) Destroy(addSlot.obj);
 
         if (stageManager.baseNormalBlockQuantity > 0) Icons.Add(normalIcon);
 
@@ -182,5 +199,10 @@ public class ItemSelectSystem : MonoBehaviour
     }
     private int Next(int index) => (index + 1) % Icons.Count;
     private int Prev(int index) => (index - 1 + Icons.Count) % Icons.Count;
+
+    public void SetInputProvider(IInputProvider provider)
+    {
+        inputProvider = provider;
+    }
 }
 

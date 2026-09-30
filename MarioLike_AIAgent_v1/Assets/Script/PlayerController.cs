@@ -152,7 +152,16 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
             ConstantTime: jumpBufferTime,
             Timer: Time.deltaTime);
 
-        if (inputProvider is KeyboardInputProvider) CreateBlock();
+        if (inputProvider is KeyboardInputProvider)
+        {
+            Vector2 mousePos = mainCamera.ScreenToWorldPoint(inputProvider.GetBlockPos());
+            KeyboardCreateBlock(mousePos);
+        }
+        else if(inputProvider is AIInputProvider)
+        {
+            Vector2 blockPos = transform.position + inputProvider.GetBlockPos();
+            AICreateBlock(blockPos);
+        }
 
         FallHole();
     }
@@ -274,9 +283,8 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
         }
     }
-    private void CreateBlock()
+    private void KeyboardCreateBlock(Vector2 mousePos)
     {
-        Vector2 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         Vector2 intMousePos = new Vector2(Mathf.Floor(mousePos.x), Mathf.Floor(mousePos.y));
         Vector2 cellCentrePos = new Vector2(intMousePos.x + 0.5f, intMousePos.y + 0.5f);
 
@@ -305,7 +313,7 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
         if (stayDesireBlock && Physics2D.OverlapBox(cellCentrePos, new Vector2(0.9f, 0.9f), 0.0f, ~(playerStompLayer|blackHoleLayer)) == null)
         {
             if (desireBlockIns != null) desireBlockIns.transform.position = intMousePos;
-            if (Input.GetMouseButtonDown(0) && blockQuantity[currentIndex] > 0) 
+            if (inputProvider.GetBlockInsDown() && blockQuantity[currentIndex] > 0) 
             {
                 audioSource.PlayOneShot(putSE);
                 stageManager.destroyBlockList.Add(Instantiate(blocks[currentIndex].block, intMousePos, Quaternion.identity));
@@ -324,9 +332,42 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
             }
         }
     }
+    private void AICreateBlock(Vector2 mousePos)
+    {
+        Vector2 intMousePos = new Vector2(Mathf.Floor(mousePos.x), Mathf.Floor(mousePos.y));
+        Vector2 cellCentrePos = new Vector2(intMousePos.x + 0.5f, intMousePos.y + 0.5f);
+
+
+        if (currentIndex != itemSelectSystem.currentIndex)
+        {
+            currentIndex = itemSelectSystem.currentIndex;
+        }
+
+        //ブロックの設置.
+        if (Physics2D.OverlapBox(cellCentrePos, new Vector2(0.9f, 0.9f), 0.0f, ~(playerStompLayer | blackHoleLayer)) == null)
+        {
+            if (desireBlockIns != null) desireBlockIns.transform.position = intMousePos;
+            if (inputProvider.GetBlockInsDown() && blockQuantity[currentIndex] > 0)
+            {
+                audioSource.PlayOneShot(putSE);
+                stageManager.destroyBlockList.Add(Instantiate(blocks[currentIndex].block, intMousePos, Quaternion.identity));
+
+                if (blockQuantity[currentIndex] > 0)
+                {
+                    blockQuantity[currentIndex]--;
+                    activeBlockQuantity.text = "×" + blockQuantity[currentIndex];
+                }
+                if (blockQuantity[currentIndex] <= 0)
+                {
+                    Destroy(desireBlockIns);
+                }
+            }
+        }
+    }
     public void InitBlocks()
     {
         blocks.Clear();
+        blockQuantity.Clear();
 
         if (stageManager.baseNormalBlockQuantity > 0)
         {
@@ -352,6 +393,9 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
     }
     public void ResetPlayer()
     {
+        //coyoteTimeCounter = 0;
+        //jumpBufferTime = 0;
+
         hp = stageManager.playerHp;
         HPUIManager hPUIManager = FindFirstObjectByType<HPUIManager>();
         hPUIManager.SetMaxHP(hp);

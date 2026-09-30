@@ -8,6 +8,7 @@ public class CharacterAgent : Agent
 {
     private Rigidbody2D rb;
     private PlayerController playerController;
+    private ItemSelectSystem itemSelectSystem;
     private Goal goal;
     private PlayerStomp playerStomp;
     private StageManager stageManager;
@@ -34,10 +35,13 @@ public class CharacterAgent : Agent
         rb = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerController>();
         playerStomp = playerController.GetComponentInChildren<PlayerStomp>();
+
+        itemSelectSystem = FindFirstObjectByType<ItemSelectSystem>();
         goal = FindFirstObjectByType<Goal>();
         stageManager = FindFirstObjectByType<StageManager>();
         inputProvider = new AIInputProvider();
         playerController.SetInputProvider(inputProvider);
+        itemSelectSystem.SetInputProvider(inputProvider);
 
         holizontalMove = 0.0f;
 
@@ -53,6 +57,7 @@ public class CharacterAgent : Agent
         goal.isCleared = false;
 
         playerController.SetInputProvider(inputProvider);
+        itemSelectSystem.SetInputProvider(inputProvider);
         inputProvider.ResetInput();
 
         previousX = transform.position.x;
@@ -69,61 +74,38 @@ public class CharacterAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        int action = actions.DiscreteActions[0];
+        int moveAction = actions.DiscreteActions[0];
+        int dashAction = actions.DiscreteActions[1];
+        int jumpAction = actions.DiscreteActions[2];
+        int blockSelect = actions.DiscreteActions[3];
+        int blockInst = actions.DiscreteActions[4];
+        int offsetX = actions.DiscreteActions[5];
+        int offsetY = actions.DiscreteActions[6];
 
-        switch(action)
+        Debug.Log($"[Debug] move={actions.DiscreteActions[0]}, jump={actions.DiscreteActions[1]}, dash={actions.DiscreteActions[2]}");
+
+
+        switch (moveAction)
         {
-            case 0: //何もしない.
-                inputProvider.move = 0.0f;
-                inputProvider.jumpHold = false;
-                inputProvider.dushHold = false;
-                break;
-            case 1: //右移動.
-                inputProvider.move = 1.0f;
-                inputProvider.jumpHold = false;
-                inputProvider.dushHold = false;
-                break;
-            case 2: //左移動.
-                inputProvider.move = -1.0f;
-                inputProvider.jumpHold = false;
-                inputProvider.dushHold = false;
-                break;
-            case 3: //ジャンプ.
-                inputProvider.move = 0.0f;
-                inputProvider.jumpHold = true;
-                inputProvider.dushHold = false;
-                break;
-            case 4: //右移動+ダッシュ.
-                inputProvider.move = 1.0f;
-                inputProvider.jumpHold = false;
-                inputProvider.dushHold = true;
-                break;
-            case 5: //左移動+ダッシュ.
-                inputProvider.move = -1.0f;
-                inputProvider.jumpHold = false;
-                inputProvider.dushHold = true;
-                break;
-            case 6: //右移動+ジャンプ.
-                inputProvider.move = 1.0f;
-                inputProvider.jumpHold = true;
-                inputProvider.dushHold = false;
-                break;
-            case 7: //左移動+ジャンプ.
-                inputProvider.move = -1.0f;
-                inputProvider.jumpHold = true;
-                inputProvider.dushHold = false;
-                break;
-            case 8: //右移動+ジャンプ+ダッシュ.
-                inputProvider.move = 1.0f;
-                inputProvider.jumpHold = true;
-                inputProvider.dushHold = true;
-                break;
-            case 9: //左移動+ジャンプ+ダッシュ.
-                inputProvider.move = -1.0f;
-                inputProvider.jumpHold = true;
-                inputProvider.dushHold = true;
-                break;
+            case 0: inputProvider.move = 0.0f;  break;
+            case 1: inputProvider.move = 1.0f;  break;
+            case 2: inputProvider.move = -1.0f; break;
         }
+
+        inputProvider.dushHold = (dashAction == 1);
+
+        inputProvider.jumpHold = (jumpAction == 1);
+
+        switch (blockSelect)
+        {
+            case 0: inputProvider.scroll = 0.0f; break;
+            case 1: inputProvider.scroll = 1.0f; break;
+            case 2: inputProvider.scroll = -1.0f; break;
+        }
+
+        inputProvider.blockInsDown = (blockInst == 1);
+
+        inputProvider.blockPos = new Vector3(offsetX-8, offsetY-4);
 
         //報酬.
         float deltaX = transform.position.x - previousX;
@@ -134,7 +116,7 @@ public class CharacterAgent : Agent
         AddReward(-timePenralty);
 
         //if (action != previousAction) AddReward(-actionPenralty);
-        previousAction = action;
+        //previousAction = action;
 
         //stepCount++;
     }
