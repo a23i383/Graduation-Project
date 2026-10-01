@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
     private Camera mainCamera;
     private bool stayDesireBlock = false;
     private GameObject desireBlockIns;
-    private int currentIndex = 0;
+    public int currentIndex = 0;
 
     private float gravity = 3.0f;
     private float sensitivity = 3.0f;
@@ -99,6 +99,7 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
 
     public event System.Action IsDied;
     public event System.Action<int> OnDamaged;
+    public event System.Action BlockInsed;
 
     private void Start()
     {
@@ -344,6 +345,7 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
         }
 
         //ブロックの設置.
+        bool successIns = false;
         if (Physics2D.OverlapBox(cellCentrePos, new Vector2(0.9f, 0.9f), 0.0f, ~(playerStompLayer | blackHoleLayer)) == null)
         {
             if (desireBlockIns != null) desireBlockIns.transform.position = intMousePos;
@@ -351,18 +353,17 @@ public class PlayerController : MonoBehaviour, IConveyorAddSpeeder
             {
                 audioSource.PlayOneShot(putSE);
                 stageManager.destroyBlockList.Add(Instantiate(blocks[currentIndex].block, intMousePos, Quaternion.identity));
+                BlockInsed?.Invoke();
+                successIns = true;
 
                 if (blockQuantity[currentIndex] > 0)
                 {
                     blockQuantity[currentIndex]--;
                     activeBlockQuantity.text = "×" + blockQuantity[currentIndex];
                 }
-                if (blockQuantity[currentIndex] <= 0)
-                {
-                    Destroy(desireBlockIns);
-                }
             }
         }
+        GetComponent<CharacterAgent>().blockInsResult = successIns ? 1 : 2;
     }
     public void InitBlocks()
     {

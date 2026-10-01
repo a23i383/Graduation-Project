@@ -1,0 +1,13 @@
+ProgressRewardScale	1.0->1.5
+BlockInsCost		0.1->1.0
+
+TimePenalty=		0.005
+ActionPenalty=		0.0
+ProgressRewardScale=	1.0
+DamagePenalty=		1.0
+DeathPenalty=		2.0
+GoalReward=		20.0
+StompReward=		5.0
+BlockInsCost=		0.1
+
+崖をビビらなくなりましたが、ブロック関係なくぶっ飛ぶだけです。

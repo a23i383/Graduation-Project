@@ -3,6 +3,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Integrations.Match3;
+using Unity.Jobs.LowLevel.Unsafe;
 
 public class CharacterAgent : Agent
 {
@@ -26,9 +27,13 @@ public class CharacterAgent : Agent
     [SerializeField] private float deathPenalty = 1.0f;
     [SerializeField] private float goalReward = 1.0f;
     [SerializeField] private float stompReward = 1.0f;
+    [SerializeField] private float blockInsCost = 0.1f;
 
     private float previousX;
     private int previousAction;
+
+    [HideInInspector] public int blockInsResult = 0;
+    [HideInInspector] public int currentBlockQuantity;
 
     public override void Initialize()
     {
@@ -49,6 +54,7 @@ public class CharacterAgent : Agent
         playerController.IsDied += HandleDied;
         playerController.OnDamaged += HandleDamaged;
         playerStomp.isStomp += HandleStomped;
+        playerController.BlockInsed += HandleBlockIns;
     }
 
     public override void OnEpisodeBegin()
@@ -62,6 +68,7 @@ public class CharacterAgent : Agent
 
         previousX = transform.position.x;
         previousAction = 0;
+        currentBlockQuantity = playerController.blockQuantity[0];
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -70,6 +77,9 @@ public class CharacterAgent : Agent
         sensor.AddObservation(transform.position.y);
         sensor.AddObservation(rb.linearVelocity.x);
         sensor.AddObservation(rb.linearVelocity.y);
+        sensor.AddOneHotObservation(playerController.currentIndex, 1);
+        sensor.AddObservation(playerController.blockQuantity.ConvertAll(bq => (float)bq));
+        sensor.AddOneHotObservation(blockInsResult, 3);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -81,9 +91,6 @@ public class CharacterAgent : Agent
         int blockInst = actions.DiscreteActions[4];
         int offsetX = actions.DiscreteActions[5];
         int offsetY = actions.DiscreteActions[6];
-
-        Debug.Log($"[Debug] move={actions.DiscreteActions[0]}, jump={actions.DiscreteActions[1]}, dash={actions.DiscreteActions[2]}");
-
 
         switch (moveAction)
         {
@@ -119,6 +126,7 @@ public class CharacterAgent : Agent
         //previousAction = action;
 
         //stepCount++;
+        blockInsResult = 0;
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
@@ -151,11 +159,14 @@ public class CharacterAgent : Agent
     public void HandleOnGoaled()
     {
         AddReward(goalReward);
-        //Debug.Log(stepCount);
         EndEpisode();
     }
     public void HandleStomped()
     {
         AddReward(stompReward);
+    }
+    public void HandleBlockIns()
+    {
+        AddReward(-blockInsCost);
     }
 }

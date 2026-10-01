@@ -1,0 +1,11 @@
+actionの処理をbranchで分けたので前回までのonnxは使えません。
+
+TimePenalty=		0.005
+ActionPenalty=		0.0
+ProgressRewardScale=	1.0
+DamagePenalty=		1.0
+DeathPenalty=		2.0
+GoalReward=		20.0
+StompReward=		5.0
+
+最初にブロックをざっくばらんに置ますので、報酬設計に手を加えて改良します。

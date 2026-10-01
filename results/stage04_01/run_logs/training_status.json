@@ -1,0 +1,65 @@
+{
+    "CharacterAgent": {
+        "checkpoints": [
+            {
+                "steps": 299959,
+                "file_path": "results\\stage04_00\\CharacterAgent\\CharacterAgent-299959.onnx",
+                "reward": 7.714993023872376,
+                "creation_time": 1790825178.0868332,
+                "auxillary_file_paths": [
+                    "results\\stage04_00\\CharacterAgent\\CharacterAgent-299959.pt"
+                ]
+            },
+            {
+                "steps": 349990,
+                "file_path": "results\\stage04_00\\CharacterAgent\\CharacterAgent-349990.onnx",
+                "reward": 7.199388852486243,
+                "creation_time": 1790825625.92021,
+                "auxillary_file_paths": [
+                    "results\\stage04_00\\CharacterAgent\\CharacterAgent-349990.pt"
+                ]
+            },
+            {
+                "steps": 399976,
+                "file_path": "results\\stage04_00\\CharacterAgent\\CharacterAgent-399976.onnx",
+                "reward": 6.155114030838012,
+                "creation_time": 1790826071.9924328,
+                "auxillary_file_paths": [
+                    "results\\stage04_00\\CharacterAgent\\CharacterAgent-399976.pt"
+                ]
+            },
+            {
+                "steps": 449940,
+                "file_path": "results\\stage04_00\\CharacterAgent\\CharacterAgent-449940.onnx",
+                "reward": 7.444771718978882,
+                "creation_time": 1790826521.102716,
+                "auxillary_file_paths": [
+                    "results\\stage04_00\\CharacterAgent\\CharacterAgent-449940.pt"
+                ]
+            },
+            {
+                "steps": 463609,
+                "file_path": "results\\stage04_00\\CharacterAgent\\CharacterAgent-463609.onnx",
+                "reward": 5.915271077837263,
+                "creation_time": 1790826645.197103,
+                "auxillary_file_paths": [
+                    "results\\stage04_00\\CharacterAgent\\CharacterAgent-463609.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 463609,
+            "file_path": "results\\stage04_00\\CharacterAgent.onnx",
+            "reward": 5.915271077837263,
+            "creation_time": 1790826645.197103,
+            "auxillary_file_paths": [
+                "results\\stage04_00\\CharacterAgent\\CharacterAgent-463609.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "2.1.2+cpu"
+    }
+}

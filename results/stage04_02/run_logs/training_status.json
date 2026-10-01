@@ -1,0 +1,47 @@
+{
+    "CharacterAgent": {
+        "checkpoints": [
+            {
+                "steps": 99944,
+                "file_path": "results\\stage04_02\\CharacterAgent\\CharacterAgent-99944.onnx",
+                "reward": -6.545042917132378,
+                "creation_time": 1790830997.3253353,
+                "auxillary_file_paths": [
+                    "results\\stage04_02\\CharacterAgent\\CharacterAgent-99944.pt"
+                ]
+            },
+            {
+                "steps": 199950,
+                "file_path": "results\\stage04_02\\CharacterAgent\\CharacterAgent-199950.onnx",
+                "reward": null,
+                "creation_time": 1790831914.7630591,
+                "auxillary_file_paths": [
+                    "results\\stage04_02\\CharacterAgent\\CharacterAgent-199950.pt"
+                ]
+            },
+            {
+                "steps": 251323,
+                "file_path": "results\\stage04_02\\CharacterAgent\\CharacterAgent-251323.onnx",
+                "reward": -3.0754564329981804,
+                "creation_time": 1790832389.8412898,
+                "auxillary_file_paths": [
+                    "results\\stage04_02\\CharacterAgent\\CharacterAgent-251323.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 251323,
+            "file_path": "results\\stage04_02\\CharacterAgent.onnx",
+            "reward": -3.0754564329981804,
+            "creation_time": 1790832389.8412898,
+            "auxillary_file_paths": [
+                "results\\stage04_02\\CharacterAgent\\CharacterAgent-251323.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "2.1.2+cpu"
+    }
+}

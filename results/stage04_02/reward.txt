@@ -1,0 +1,12 @@
++BlockInsCost=0.1
+
+TimePenalty=		0.005
+ActionPenalty=		0.0
+ProgressRewardScale=	1.0
+DamagePenalty=		1.0
+DeathPenalty=		2.0
+GoalReward=		20.0
+StompReward=		5.0
+BlockInsCost=		0.1
+
+ブロックを置くと報酬をマイナスするようにしましたが、依然として変わりません。もっとランダムに探索をさせようと思います。あとblockInsCostも増やします。ProgressRewardScaleも増やします。
